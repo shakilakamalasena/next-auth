@@ -1,8 +1,13 @@
+"use client";
+
 import { login } from "@/actions";
+import { useFormState } from "react-dom";
 
 const LoginForm = () => {
+    const [state, formAction] = useFormState<any, FormData>(login, undefined);
+
     return (
-        <form action={login}>
+        <form action={formAction}>
             <input
                 type="text"
                 name="username"
@@ -16,6 +21,7 @@ const LoginForm = () => {
                 placeholder="Password"
             />
             <button>Login</button>
+            {state?.error && <p>{state.error}</p>}
         </form>
     );
 };
